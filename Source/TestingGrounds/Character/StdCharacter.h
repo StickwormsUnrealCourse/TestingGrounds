@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -12,20 +10,44 @@ class TESTINGGROUNDS_API AStdCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	AStdCharacter();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+//	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void Fire();
+	bool IsDead() const;
+
+
+private:
 	
-	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class UCameraComponent* cam;
+
+	UPROPERTY(VisibleDefaultsOnly, Category = "Mesh")
+	class USkeletalMeshComponent* mesh1P;
+
+//	UPROPERTY(VisibleDefaultsOnly, Category = "Mesh")
+//	class USkeletalMeshComponent* mesh3rdP; //Mesh already included in base class
+
+	class AWeapon* weapon;
+
+//	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+//	TSubclassOf<class AWeapon> weapon_BP;
+
+
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	class UChildActorComponent* weaponChildActor;
+
+	float health;
+	float maxHealth;
+
+
 };
